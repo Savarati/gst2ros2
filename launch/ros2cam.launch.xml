@@ -1,0 +1,22 @@
+<launch>
+  <!-- This launchfile should bring up a node that broadcasts a ros image
+       transport on /webcam/image_raw -->
+
+  <arg name="DEVICE" default="/dev/video0"/>
+  <!-- The GStreamer framerate needs to be an integral fraction -->
+  <arg name="FPS" default="30/1"/>
+
+  <node namespace="mavgscam" pkg="mavgscam" exec="mavgscam_node" output="screen">
+    <param name="config_index" value="0"/>
+  <!-- Publish Stream parameter -->
+    <param name="camera_name" value="default"/>
+    <param name="camera_info_url" value="package://mavgscam/launch/uncalibrated_parameters.ini"/>
+    <param name="gscam_config" value="v4l2src device=/dev/video0 ! video/x-raw,framerate=$(var FPS),width=640,height=480 ! videoconvert"/>
+    <param name="frame_id" value="/v4l_frame"/>
+    <param name="image_encoding" value="rgb8"/>
+    <param name="sync_sink" value="true"/>
+  <!-- mavros server parameter -->
+  
+  </node>
+
+</launch>

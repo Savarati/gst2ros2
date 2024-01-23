@@ -1,0 +1,31 @@
+############
+# The following configuration items in the two configuration files must be different:
+# Camid  RtspPort  RtspMount
+# 
+Camid: 0
+StreamSource: qtiqmmfsrc
+LogLevel: 2
+
+CamPubListerStream:
+    mWidth: 1920
+    mHeight: 1080
+    rWidth: 4192
+    rHeight: 3104
+    FPS: 30
+    Format: NV12
+    AfMode: 3
+    image_encoding: rgb8
+    #gsconfig_: v4l2src device=$(var DEVICE) ! video/x-raw,framerate=$(var FPS) ! videoconvert
+    #PipelineStr: qtiqmmfsrc name=qmmf af-mode=3 ! capsfilter caps=video/x-h265,fromat=NV12,width=1920,height=1080,framerate=30/1 ! h265parse config-interval=1 ! rtph265pay ! udpsink host=127.0.0.1 port=8554 sync=false async=false
+
+RtspStream:
+    RtspHost: 10.85.4.21     #127.0.0.1
+    RtspPort: 8900
+    RtspMount: /live0
+    #pipelineStr: 
+
+MavLinkServer:
+    MavTgtSystem: 1
+    MavTgtComponent: 1
+    MavSourceSystem: 1
+    MavSourceComp: 100
